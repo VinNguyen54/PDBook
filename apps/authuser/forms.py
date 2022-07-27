@@ -1,7 +1,11 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate
+from django.forms import ModelForm
 from django import forms
+
+
 from .models import User
+from apps.product.models import Product
 
 class RegisterForm(UserCreationForm):
     class Meta:
@@ -26,3 +30,8 @@ class UserLoginForm(forms.Form):
                 raise forms.ValidationError('Incorrect Password')
 
         return super(UserLoginForm, self).clean(*args, **kwargs)
+
+class ProductForm(ModelForm):
+    class Meta:
+        model = Product
+        fields = ['category', 'image', 'title', 'description', 'author', 'page', 'publisher', 'publish_date', 'price', 'discount' ]
