@@ -29,6 +29,9 @@ ALLOWED_HOSTS = []
 
 LOGOUT_REDIRECT_URL = 'home'
 
+SESSION_COOKIE_AGE = 86400
+CART_SESSION_ID = 'cart'
+
 AUTH_USER_MODEL = 'authuser.User'
 
 # Application definition
@@ -43,6 +46,8 @@ INSTALLED_APPS = [
     'apps.core',
     'apps.authuser',
     'apps.product',
+    'apps.cart',
+    'apps.order',
 ]
 
 MIDDLEWARE = [
@@ -69,6 +74,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'apps.product.context_processors.menu_categories',
+                'apps.cart.context_processors.cart',
             ],
         },
     },
