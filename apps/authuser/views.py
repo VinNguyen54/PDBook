@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 
 from .forms import RegisterForm, UserLoginForm, ProductForm
 from apps.product.models import Product
+from apps.orders.models import Order
 # Create your views here.
 
 def register(request):
@@ -51,8 +52,9 @@ def userlogin(request):
 def vendor_admin(request):
     vendor = request.user
     products = vendor.products.all()
+    orders = Order.objects.all()
 
-    return render(request, 'authuser/vendor_admin.html', {'vendor':vendor, 'products':products})
+    return render(request, 'authuser/vendor_admin.html', {'vendor':vendor, 'products':products, 'orders':orders})
 
 @login_required
 def add_product(request):
