@@ -1,6 +1,6 @@
 from django.urls import path
 from django.contrib.auth import views
-from .views import register, userlogin ,vendor_admin, add_product
+from .views import register, userlogin ,vendor_admin, add_product, edit_product
 
 urlpatterns = [
     path('register/', register, name='register'),
@@ -10,4 +10,5 @@ urlpatterns = [
 
     path('vendor-admin/', vendor_admin, name= 'vendor_admin'),
     path('add-product/',add_product, name='add_product'),
+    path('edit-product/<int:pk>/',edit_product, name='edit_product'),
 ]

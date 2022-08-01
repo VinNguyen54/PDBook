@@ -72,3 +72,21 @@ def add_product(request):
         form = ProductForm()
     
     return render(request, 'authuser/add_product.html', {'form': form})
+
+@login_required
+def edit_product(request, pk):
+    vendor = request.user
+    product = vendor.products.get(pk = pk)
+
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES, instance=product)
+
+        if form.is_valid():
+            form.save()
+
+            return redirect('vendor_admin')
+
+    else:
+        form = ProductForm(instance=product) 
+
+    return render(request, 'authuser/edit_product.html', {'form':form, 'product':product})
