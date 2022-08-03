@@ -49,6 +49,13 @@ def userlogin(request):
     return render(request, 'authuser/login.html', {'form':form})
 
 @login_required
+def customer_admin(request):
+    customer = request.user
+    orders = customer.orders.all()
+
+    return render(request, 'authuser/customer_admin.html', {'customer':customer, 'orders':orders})
+
+@login_required
 def vendor_admin(request):
     vendor = request.user
     products = vendor.products.all()

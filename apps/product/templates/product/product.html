@@ -12,6 +12,9 @@
 
 
     <h1 class="title">{{ product.title }}, {{ product.get_display_price }}90 VND</h1>
+    {% if product.get_rating > 0 %}
+        <p>Rating: {{ product.get_rating }} /5</p>
+    {% endif %}
 
     <p class="mb-6"><span class="tag is-dark">{{ product.author }}</span></p>
 
@@ -53,5 +56,42 @@
             {% endfor %}
         </div>
     {% endif %}
+    <hr>
+    
+    <h1>Comment</h1>
+
+    <div class="box">
+        {% if request.user.is_authenticated %}
+            <form method="post" action=".">
+                {% csrf_token %}
+
+                <div>
+                    <label>rating</label>
+                    <select name="ratinf">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3" selected>3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Comment</label>
+                    <textarea name="content"> </textarea>
+                </div>
+                <div>
+                    <button>Submit</button>
+                </div>
+            </form>
+            <hr>
+        {% endif %}
+        {% for review in product.reviews.all %}
+            <div>
+                <strong>Rating: </strong>{{ review.rating }}<br>
+                <strong>Content: </strong><br>{{ review.content }}<br>
+                <hr>
+            </div>
+        {% endfor %}
+    </div>
 </div>
 {% endblock %}

@@ -34,7 +34,11 @@ CART_SESSION_ID = 'cart'
 
 AUTH_USER_MODEL = 'authuser.User'
 
-# Application definition
+EMAIL_HOST = 'smtp.mailtrap.io'
+EMAIL_HOST_USER = '40b087ca4ee69e'
+EMAIL_HOST_PASSWORD = 'b7fc839d7f4d3b'
+EMAIL_PORT = '2525'
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
