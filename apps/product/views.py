@@ -42,15 +42,7 @@ def product(request, category_slug, product_slug):
         content = request.POST.get('content', '')
 
         if content:
-            reviews = Review.objects.filter(created_by = request.user, product = product)
-
-            if reviews.count() >0:
-                review = reviews.first()
-                review.rating = rating
-                review.content = content
-                review.save()
-            else:
-                review = Review.objects.create(product = product, rating = rating,content = content, created_by = request.user)
+            review = Review.objects.create(product = product, rating = rating,content = content, created_by = request.user)
 
             return redirect('product', category_slug=category_slug, product_slug=product_slug)
 

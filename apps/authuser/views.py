@@ -97,3 +97,10 @@ def edit_product(request, pk):
         form = ProductForm(instance=product) 
 
     return render(request, 'authuser/edit_product.html', {'form':form, 'product':product})
+
+@login_required
+def remove_product(request, pk):
+    vendor = request.user
+    product = vendor.products.get(pk = pk)
+    product.delete()
+    return redirect('vendor_admin')
