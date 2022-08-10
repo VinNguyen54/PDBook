@@ -1,72 +1,143 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>{% block title %}{% endblock %} PDbook</title>
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <title>{% block title %}{% endblock %}PBook</title>
+    <!-- link css online -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <!-- CSS links -->
     <link rel="stylesheet" href="{% static 'css/core.css' %}">
-    <script src="{% static 'js/main.js' %}"></script>
+    {% block css %}{% endblock %}
+
 </head>
+
+
 <body>
-    <nav class="navbar is-dark">
-        <div class="navbar-brand">
-            <a href="/" class="navbar-item"><strong>PdBook</strong></a>
-    
-            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="main-navbar">
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-            </a>
+    <!-- Header section starts -->
+    <header class="header">
+        <div class="header-1">
+            <a href="{% url 'home' %}" class="logo"><i class="fas fa-book"> PBook</i></a>
+
+            <form action="" class="search-form">
+                <input type="search" name="" placeholder="Search here ... " id="search-box">
+                <label for="search-box" class="fas fa-search"></label>
+            </form>
+
+            <div class="icons">
+                <div id="search-btn" class="fas fa-search"></div>
+                <a href="{% url 'cart' %}" class="fas fa-shopping-cart"><span>{% if cart %} ({{ cart|length }}){% else %} (0){% endif %} </span></a>
+                
+                {% if request.user.is_authenticated %}
+                  <a href="{% url 'customer_admin' %}" id="login-btn" class="fas fa-user"><span>{{ request.user.name }}</span></a>
+                {% else %}
+                  <a href="{% url 'register' %}" id="login-btn" class="fas fa-user"><span>Login/Register</span></a>
+                {% endif %}
+            </div>
         </div>
 
-        <div class="navbar-menu" id="main-navbar">
-            <div class="navbar-start">
-                <div class="navbar-item">
-                    <form method="get" action="{% url 'search' %}">
-                        <div class="field has-addons">
-                            <div class="control">
-                                <input type="text" class="input" placeholder="Search..." name="query">
-                            </div>
-                            <div class="control">
-                                <button class="button is-dark is-uppercase">Search</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <div class="navbar-end">
-                {% for category in menu_categories %}
-                    <a href="{% url 'category' category.slug %}" class="navbar-item">{{ category.title }}</a>
+        <div class="header-2">
+            <nav class="navbar">
+                {% for category in menu_categories%}
+                <a href="{% url 'category' category.slug %}">{{ category.title }}</a>
                 {% endfor %}
-                <a href="{% url 'contact' %}" class="navbar-item">contact</a>
-                <div class="navbar-item">
-                    <a href="{% url 'cart' %}" class="button is-dark">Cart{% if cart %} ({{ cart|length }}){% endif %}</a>
-                </div>
+                <div class="category-dropdown">
+                    Orther <i class="fas fa-caret-down"></i>
+                    <div class="dropdown-content">
+                        <a href="#"> HORNOR</a>
+                        <a href="#"> MANGA</a>
+                    </div>
             </div>
+            </nav>
         </div>
+    </header>
+    <!-- Header section end -->
+
+
+
+
+
+    <!-- Bottom navbar -->
+     <nav class="bottom-navbar">
+        <a href="#home" class="fas fa-home"></a>
+        <a href="#home" class="fas fa-list"></a>
+        <a href="#home" class="fas fa-tags"></a>
+        <a href="#home" class="fas fa-blog"></a>
     </nav>
+    <!-- ********** -->
 
 
-    <section class="section">
-        <div class="container">
-            {% block content %}
-            {% endblock %}
-        </div>
+    {% block content %}
+    {% endblock %}
+
+
+
+    <!-- footer -->
+    <section class="footer">
+        <footer>
+            <div class="main-content">
+              <div class="left box">
+                <h2>About us</h2>
+                <div class="content">
+                  <p>CodinNepal is a YouTube channel where you can learn web designing, web development, ui/ux designing, html css tutorial, hover animation and effects, javascript and jquery tutorial and related so on.</p>
+                  <div class="social">
+                    <a href="#"><span class="fab fa-facebook-f"></span></a>
+                    <a href="#"><span class="fab fa-twitter"></span></a>
+                    <a href="#"><span class="fab fa-instagram"></span></a>
+                    <a href="#"><span class="fab fa-youtube"></span></a>
+                  </div>
+                </div>
+              </div>
+              <div class="center box">
+                <h2>Address</h2>
+                <div class="content">
+                  <div class="place">
+                    <span class="fas fa-map-marker-alt"></span>
+                    <span class="text">Birendranagar, Surkhet</span>
+                  </div>
+                  <div class="phone">
+                    <span class="fas fa-phone-alt"></span>
+                    <span class="text">+089-765432100</span>
+                  </div>
+                  <div class="email">
+                    <span class="fas fa-envelope"></span>
+                    <span class="text">abc@example.com</span>
+                  </div>
+                </div>
+              </div>
+              <div class="right box">
+                <h2>Contact us</h2>
+                <div class="content">
+                  <form action="#">
+                    <div class="email">
+                      <div class="text">Email *</div>
+                      <input type="email" required>
+                    </div>
+                    <div class="msg">
+                      <div class="text">Message *</div>
+                      <textarea rows="2" cols="25" required></textarea>
+                    </div>
+                    <div class="btn-sent">
+                      <button type="submit">Send</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
     </section>
+    <!-- ******** -->
 
-    <footer class="footer">
-        <h3 class="is-size-4 mb-4">Pdbook</h3>
 
-        {% if request.user.is_authenticated %}
-            <a href="{% url 'customer_admin' %}">Admin</a>
-        {% else %}
-            <a href="{% url 'register' %}">Become Vendor</a>
-        {% endif %}
-    </footer>
-    
+
+    <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+    <!-- JS links -->
+    <script src="{% static 'js/core.js' %}"></script>
+    {% block script %}{% endblock %}
+
 </body>
+
 </html>

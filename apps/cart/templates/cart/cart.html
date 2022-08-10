@@ -1,60 +1,61 @@
 {% extends 'core/base.html' %}
+{% load static %}
 
 {% block title %}Cart | {% endblock %}
+{% block css %} <link rel="stylesheet" href="{% static 'css/cart.css' %}"> {% endblock %}
 
 {% block content %}
-    <h1 class="title">Cart</h1>
+    <section class="shopping-cart">
+        <h1><a href="{% url 'home' %}" class="fas fa-arrow-left"></a> Shopping Cart</h1>
+        
+        <table>
+            <thead>
+                <th>remove</th>
+                <th>image</th>
+                <th>name</th>
+                <th>price</th>
+                <th>quantity</th>
+                <th>total price</th>
+            </thead>
 
-    {% if cart %}
-        <div class="box mb-6">
-            <div class="table">
-                <table class="table is-fullwidth is-striped">
-                    <thead>
-                        <th></th>
-                        <th>Product</th>
-                        <th>Quantity</th>
-                        <th>Price</th>
-                        <th></th>
-                    </thead>
-
-                    <tbody>
-                        {% for item in cart %}
-                            <tr>
-                                <td>
-                                    <figure class="image is-64x64">
-                                        <img src="{{ item.product.get_thumbnail }}">
-                                    </figure>
-                                </td>
-                                <td>
-                                    <a href="{% url 'product' item.product.category.slug item.product.slug %}">{{ item.product.title }}</a>
-                                </td>
-                                <td>
-                                    {{ item.quantity }}
-
-                                    <a href="?change_quantity={{ item.id }}&quantity=-1">-</a>
-                                    <a href="?change_quantity={{ item.id }}&quantity=1">+</a>
-                                </td>
-                                <td>${{ item.total_price }}</td>
-                                <td><a href="?remove_from_cart={{ item.id }}" class="delete">Remove</a></td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-
-                    <tfoot>
-                        <tr>
-                            <td></td>
-                            <td><strong>Total cost</strong></td>
-                            <td><strong>{{ cart|length}}</strong></td>
-                            <td colspan="2"><strong>${{ cart.get_total_cost }}</strong></td>
-                        </tr>
-                    </tfoot>
-                </table>
+            {% if cart %}
+            <tbody>
+                {% for item in cart %}
+                <tr>
+                    <td><a href="?remove_from_cart={{ item.id }}" class="fas fa-trash-can"></td>
+                    <td><img src="{{ item.product.get_thumbnail }}" alt="" height="70"></td>
+                    <td><a href="{% url 'product' item.product.category.slug item.product.slug %">{{ item.product.title }}</a></td>
+                    <td>${{ item.product.price }}</td>
+                    <td><a href="?change_quantity={{ item.id }}&quantity=-1">-</a>  {{ item.quantity }}  <a href="?change_quantity={{ item.id }}&quantity=1" >+</a></td>
+                    <td>${{ item.total_price }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            {% else %}
+            <tbody>
+                <tr>
+                    <td colspan="6" style="font-size: 2.5rem;">You don't have any products in your cart!</td>
+                </tr>
+            </tbody>
+            {% endif %}
+        </table>
+        {% if cart %}
+        <div class="total">
+            <div class="title">
+                <h5>CART TOTAL</h5>
             </div>
+            <div class="justify-content">
+                <h6>total: </h6>
+                <p>{{ cart.get_total_cost }}VND</p>
+            </div>
+            <div class="justify-content">
+                <h6>Items: </h6>
+                <p>{{ cart|length}}</p>
+            </div>
+            <hr class="second-hr">
+            <a href="{% url 'checkout' %}" class="btn">Checkout</a>
         </div>
+        {% endif %}
+    </section>
 
-        <a href="{% url 'checkout' %}" class="button is-dark is-uppercase mb-6">checkout</a>
-     
-    {% else %}
-        <p>You don't have any products in your cart!</p>
-    {% endif %}
 {% endblock %}

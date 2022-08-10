@@ -1,0 +1,185 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Nunito:wght@300&family=Poppins:ital,wght@0,100;0,200;0,300;1,100;1,200;1,300&display=swap');
+
+:root{
+    --green :#27ae60;
+    --dark-color: #219150;
+    --black: #444;
+    --light-color: #666;
+    --border: .1rem solid rgba(0,0,0,.1);
+    --border-hover: .1rem solid var(--black);
+    --box-shadow: 0 .5rem 1rem rgba(0,0,0,.1);
+}
+
+*{
+    font-family: 'Nunito', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+    border: none;
+    text-decoration: none;
+    text-transform: none;
+    transition: all .2s linear;
+    transition: width none;
+}
+
+html{
+    font-size: 62.5%;
+    overflow-x: hidden;
+    scroll-padding-top: 5rem;
+    scroll-behavior: smooth;
+}
+
+html::-webkit-scrollbar{
+    width: 1rem;
+}
+
+html::-webkit-scrollbar-track{
+    background: transparent;
+}
+
+html::-webkit-scrollbar-thumb{
+    background: var(--black);
+}
+
+section{
+    padding: 5rem 9%;
+}
+
+.heading{
+    text-align: center;
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.heading::before{
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    width: 100%;
+    height: .01rem;
+    background-color: rgba(0,0,0,.1);
+    z-index: -1;
+}
+
+.heading span{
+    font-size: 4.5rem;
+    padding: .5rem 2rem;
+    color:var(--black);
+    background: #fff;
+    border: var(--border);
+}
+
+.btn{
+    margin-top: 1rem;
+    display: inline-block;
+    padding: .9rem 3rem;
+    border-radius: .5rem;
+    color: #fff;
+    background: var(--green);
+    font-size: 1.7rem;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.btn:hover{
+    background-color: var(--dark-color);
+}
+
+
+
+
+
+
+
+/* home */
+.product{
+    background: url(/static/img/banner-bg.jpg) no-repeat;
+    background-size: cover;
+    background-position: center;
+    box-shadow: var(--box-shadow);
+    border: var(--border);
+}
+
+.product .row{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+.product .row .content{
+    flex: 1 1 42rem;
+    border-right: var(--border);
+}
+
+.product .row .content input{
+    height: 35px;
+    width: 170px;
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.product .row .content .btn{
+    width: 170px;
+}
+
+.product .row .books-slider{
+    flex: 1 1 42rem;
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.product .row .books-slider a img{
+    height: 40rem;
+    width: 312px;
+}
+
+.product .row .books-slider .stand{
+    width: 100%;
+    margin-top: -1rem;
+}
+
+.product .row .content h3{
+    color: var(--black);
+    font-size: 5rem;
+}
+
+.product .row .content h2{
+    color: var(--black);
+    font-size: 3.5rem;
+    margin: 20px 0 25px 0;
+}
+
+.product .row .content h1{
+    color: var(--black);
+    font-size: 2.5rem;
+}
+
+
+.product .row .content p{
+    color: var(--light-color);
+    font-size: 1.7rem;
+    line-height: 2;
+    padding: 0.5rem 0;
+}
+
+.product .description{
+    width: 100%;
+    height: auto;
+    border: var(--border);
+}
+.product .description h3{
+    font-size: 2.5rem;
+    margin-bottom: 0;
+    padding: 0.5rem;
+}
+
+.product .description p{
+    color: var(--light-color);
+    font-size: 1.7rem;
+    line-height: 2;
+    padding: 0.7rem;
+}

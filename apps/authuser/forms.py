@@ -1,4 +1,3 @@
-from dataclasses import field
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate
 from django.forms import ModelForm

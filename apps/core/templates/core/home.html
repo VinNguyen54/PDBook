@@ -1,15 +1,151 @@
 {% extends 'core/base.html' %}
+{% load static %}
 
 {% block title %}Welcome |{% endblock %}
 
 {% block content %}
-    <div class="columns is-multiline mb-6">
-        <div class="column is-12 has-text-centered mt-6 mb-6">
-            <h2 class="is-size-3">Newest products</h2>
-        </div>
+     <!-- home section -->
+     <section class="home" id="home">
+        <div class="row">
 
-        {% for product in newest_products %}
-            {% include 'product/parts/list_item.html' %}
-        {% endfor %}
-    </div>
+            <div class="content">
+                <h3>upto 70% off</h3>
+                <p>kwbgoinbw g egjne geogje gw gowgjw gwojg wgojg gwg weg owg hoieg wghwpg wp egjw egowg </p>
+                <a href="#" class="btn">Shop now</a>
+            </div>
+
+            <div class="swiper books-slider">
+                <div class="swiper-wrapper">
+                    {% for product in newest_products %}
+                    <a href="{% url 'product' product.category.slug product.slug %}" class="swiper-slide"><img src="{{ product.get_thumbnail }}" alt=""></a>
+                    {% endfor %}
+                </div>
+                <img src="{% static 'img/stand.png' %} " class="stand" alt="">
+            </div>
+        </div>
+    </section>
+    <!-- ********** -->
+
+
+    <!-- featured section  -->
+    <section id="featured" class="featured">
+        <h1 class="heading"><span>featured books</span></h1>
+        <div class="swiper featured-slider">
+
+            <div class="swiper-wrapper">
+                {% for product in newest_products %}
+                    {% include 'product/parts/list_item.html' %}
+                {% endfor %}
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+
+        </div>
+    </section>
+    <!-- ********** -->
+
+
+
+    <!-- arrivals section  -->
+    <section id="arrivals" class="arrivals">
+        <h1 class="heading"><span>New arrivals</span></h1>
+
+        <div class="swiper arrivals-slider">
+
+            <div class="swiper-wrapper ">
+
+                <a href="#" class="swiper-slide box">
+                    <div class="image">
+                        <img src="/images/book-6.png" alt="">
+                    </div>
+                    <div class="content">
+                        <h3>new arrivals</h3>
+                        <div class="price">$15.99<span> $20.99</span></div>
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                </a>
+
+
+                <a href="#" class="swiper-slide box">
+                    <div class="image">
+                        <img src="/images/book-7.png" alt="">
+                    </div>
+                    <div class="content">
+                        <h3>new arrivals</h3>
+                        <div class="price">$15.99<span> $20.99</span></div>
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                </a>
+
+
+                <a href="#" class="swiper-slide box">
+                    <div class="image">
+                        <img src="/images/book-8.png" alt="">
+                    </div>
+                    <div class="content">
+                        <h3>new arrivals</h3>
+                        <div class="price">$15.99<span> $20.99</span></div>
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                </a>
+
+
+                <a href="#" class="swiper-slide box">
+                    <div class="image">
+                        <img src="/images/book-9.png" alt="">
+                    </div>
+                    <div class="content">
+                        <h3>new arrivals</h3>
+                        <div class="price">$15.99 <span> $20.99</span></div>
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                </a>
+
+
+                <a href="#" class="swiper-slide box">
+                    <div class="image">
+                        <img src="/images/book-10.png" alt="">
+                    </div>
+                    <div class="content">
+                        <h3>new arrivals</h3>
+                        <div class="price">$15.99<span> $20.99</span></div>
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                </a>
+
+            </div>
+
+        </div>
+    </section>
+    <!-- ********** -->
 {% endblock %}
