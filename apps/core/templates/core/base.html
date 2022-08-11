@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <!-- CSS links -->
-    <link rel="stylesheet" href="{% static 'css/core.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
     {% block css %}{% endblock %}
 
 </head>
@@ -35,7 +35,7 @@
                 {% if request.user.is_authenticated %}
                   <a href="{% url 'customer_admin' %}" id="login-btn" class="fas fa-user"><span>{{ request.user.name }}</span></a>
                 {% else %}
-                  <a href="{% url 'register' %}" id="login-btn" class="fas fa-user"><span>Login/Register</span></a>
+                  <a href="{% url 'login' %}" id="login-btn" class="fas fa-user"><span>Login/Register</span></a>
                 {% endif %}
             </div>
         </div>

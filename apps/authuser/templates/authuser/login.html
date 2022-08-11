@@ -3,17 +3,19 @@
 {% block title %}Log in | {% endblock %}
 
 {% block content %}
-    <h1 class="title">Log in</h1>
+    <section class="login-register">
+        <div class="login-form-container">
 
-    <form method="post" action=".">
-        {% csrf_token %}
-
-        {{ form.as_p }}
-
-        <div class="field">
-            <div class="control">
-                <button class="button is-dark is-uppercase">Log in</button>
-            </div>
+            <form action="." method="post">
+                {% csrf_token %}
+                <h3>Login in</h3>
+                <span>Email</span>
+                {{ form.email }}
+                <span>Password</span>
+                {{ form.password }}
+                <input type="submit" value="Sign In" class="btn">
+                <p>Don't have an account ? <a href="{% url 'register' %}">Click here</a></p>
+            </form>
         </div>
-    </form>
+    </section>
 {% endblock %}
