@@ -1,44 +1,19 @@
-{% extends 'authuser/vendor_admin(header).html' %}
+{% extends 'core/base.html' %}
 
-{% block title %}Add product{% endblock %}
+{% block title %}Add product | {% endblock %}
 
 {% block content %}
-<div class="container">
+    <h1 class="title">Add product</h1>
 
-    <div class="add-product-form">
+    <form method="post" action="." enctype="multipart/form-data">
+        {% csrf_token %}
 
-        <form action="." method="post" enctype="multipart/form-data">
-            {% csrf_token %}
+        {{ form.as_p }}
 
-            <h3>Add a new product</h3>
-            
-            <p>Category: </p>
-            {{ form.category }}
-            <p>Image: </p>
-            {{ form.image }}
-            <p>Title: </p>
-            {{ form.title }}
-            <p>Description: </p>
-            {{ form.description }}
-            <p>Author: </p>
-            {{ form.author }}
-            <p>Page: </p>
-            {{ form.page }}
-            <p>Publisher: </p>
-            {{ form.publisher }}
-            <p>Publisher date: </p>
-            {{ form.publish_date }}
-            <p>Price: </p>
-            {{ form.price }}
-            <p>Discount: </p>
-            {{ form.discount }}
-
-            <input type="submit" class="btn" value="Add product">
-            <a href="{% url 'vendor_admin' %}" class="btn" style="background: red ;text-align: center;">Cancel</a>
-        </form>
-
-     </div>  
-
-
-</div>
+        <div class="field">
+            <div class="control">
+                <button class="button is-dark is-uppercase">Submit</button>
+            </div>
+        </div>
+    </form>
 {% endblock %}

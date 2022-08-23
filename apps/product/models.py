@@ -1,4 +1,5 @@
 from io import BytesIO
+from turtle import ondrag
 from PIL import Image
 
 from django.core.files import File
@@ -24,12 +25,13 @@ class Product(models.Model):
     title = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255)
     description = models.TextField(blank=True, null=True)
-    price = models.IntegerField()
+    price = models.DecimalField(max_digits=6, decimal_places=2)
     discount = models.IntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(100)])
     author = models.CharField(max_length=255)
     page = models.IntegerField()
     publisher = models.CharField(max_length=255)
     publish_date = models.DateField()
+    total_quantity = models.IntegerField()
     date_added = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(upload_to='uploads/', blank=True, null=True)
     thumbnail = models.ImageField(upload_to='uploads/', blank=True, null=True)
@@ -40,13 +42,9 @@ class Product(models.Model):
     def __str__(self):
         return self.title
 
-    def get_display_price (self):
-        return self.price / 1000
-
     def get_discount_price(self):
         return (self.price - ((self.price * self.discount)/100))
 
-    
     def get_thumbnail(self):
         if self.thumbnail:
             return self.thumbnail.url
@@ -82,9 +80,12 @@ class Product(models.Model):
         
         return 0
 
-class Review(models.Model):
-    product = models.ForeignKey(Product, related_name='reviews', on_delete=models.CASCADE)
-    rating = models.IntegerField(default=3)
-    content = models.TextField()
-    created_by = models.ForeignKey(User, related_name='reviews', on_delete=models.CASCADE)
+
+class Comment(models.Model):
+    product = models.ForeignKey(Product, related_name='comments', on_delete=models.CASCADE)
+    created_by = models.CharField(max_length=200)
+    body = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return '%s - %s' % (self.product.title, self.created_by)

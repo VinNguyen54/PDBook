@@ -1,3 +1,4 @@
+from pyexpat import model
 from django.db import models
 
 from apps.product.models import Product
@@ -13,9 +14,11 @@ class Order(models.Model):
     ORDERED     = 'ordered'
     SHIPPED     = 'shipped'
     RECEIVED    = 'received'
+    WAITING     ='waiting confirmation' 
 
 
     STATUS_CHOICES = (
+        (WAITING,'waiting confirmation' ),
         (ORDERED,'ordered' ),
         (SHIPPED, 'shipped'),
         (RECEIVED, 'received')
@@ -27,32 +30,31 @@ class Order(models.Model):
     email           = models.EmailField()
     phone           = models.CharField(max_length=60)
     address         = models.TextField()
+    note            = models.TextField(blank=True, null=True)
 
     created_at      = models.DateTimeField(auto_now_add=True)
     
-    paid_amount     = models.IntegerField(blank=True, null=True)
-    payment_method  = models.CharField(max_length=255 ,choices = PAYMENT_METHOD_CHOICES,default=HOME) 
     paid            = models.BooleanField(default=False)
+    paid_amount     = models.DecimalField(max_digits=6, decimal_places=2, blank= True, null= True)
+    payment_method  = models.CharField(max_length=255 ,choices = PAYMENT_METHOD_CHOICES,default=HOME) 
+    
 
-    status          = models.CharField(max_length=255,choices = STATUS_CHOICES,default=ORDERED )
+    status          = models.CharField(max_length=255,choices = STATUS_CHOICES,default=WAITING)
 
     class Meta:
         ordering = ['-created_at']
     
     def __str__(self):
-        return self.created_at
+        return self.last_name
 
 
 
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)
     product = models.ForeignKey(Product, related_name='items', on_delete=models.CASCADE)
-    price = models.IntegerField()
+    price = models.DecimalField(max_digits=6, decimal_places=2) 
     quantity = models.IntegerField(default=1)
 
     def __str__(self):
         return '%s' % self.id
-
-    def get_total_price(self):
-        return self.price * self.quantity
     

@@ -77,7 +77,7 @@ class UserLoginForm(forms.Form):
 class ProductForm(ModelForm):
     class Meta:
         model = Product
-        fields = ['category', 'image', 'title', 'description', 'author', 'page', 'publisher', 'publish_date', 'price', 'discount' ]
+        fields = ['category', 'image', 'title', 'description', 'author', 'page', 'publisher', 'publish_date', 'total_quantity', 'price', 'discount' ]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -128,6 +128,13 @@ class ProductForm(ModelForm):
             'class': 'box',
             'type': 'datetime-local',
             'placeholder': 'Publish Date',
+        })
+        self.fields["total_quantity"].widget.attrs.update({
+            'required': '',
+            'class': 'box',
+            'type': 'number',
+            'default': '0',
+            'placeholder': 'Quantity',
         })
         self.fields["price"].widget.attrs.update({
             'required': '',

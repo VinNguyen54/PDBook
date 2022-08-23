@@ -3,34 +3,23 @@
 {% block title %}Register | {% endblock %}
 
 {% block content %}
-<section class="login-register">
-    <div class="login-form-container">
+    <h1 class="title">Become vendor</h1>
 
-        <form action="." method="post">
-            {% csrf_token %}
+    <form method="post" action=".">
+        {% csrf_token %}
 
-            <h3>Register</h3>
+        {{ form.as_p }}
 
-            <span>Username</span>
-            {{ form.name }}
-            <span>Email</span>
-            {{ form.email }}
-            <span>Password</span>
-            {{ form.password1 }}
-
-            <div class="note">
-                <h2 style="color: red;">*Note</h2>
-                <p><i class="fas fa-circle-exclamation"></i> Your password can’t be too similar to your other personal information. </p>
-                <p><i class="fas fa-circle-exclamation"></i> Your password must contain at least 8 characters.</p>
-                <p><i class="fas fa-circle-exclamation"></i> Your password can’t be a commonly used password.</p>
-                <p><i class="fas fa-circle-exclamation"></i> Your password can’t be entirely numeric.</p>
+        <div class="field">
+            <div class="control">
+                <button class="button is-dark is-uppercase">Sign up</button>
             </div>
+        </div>
+    </form>
+    <hr>
 
-            <span>Password Confirmation</span>
-            {{ form.password2 }}
-            <input type="submit" value="Register" class="btn">
-            <p>Already have an account?  <a href="{% url 'login' %}">Click here</a></p>
-        </form>
-    </div>
-</section>
+    <h2 class="subtitle">Already have an account?</h2>
+
+    <a href="{% url 'login' %}">Log in</a>
+
 {% endblock %}

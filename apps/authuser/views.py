@@ -38,7 +38,9 @@ def userlogin(request):
 
             login(request, user)
 
-            if user.is_staff :
+            if user.is_staff and user.is_superuser:
+                return redirect('login')
+            elif user.is_staff :
                 return redirect('vendor_admin')
             else:
                 return redirect('home')
@@ -60,6 +62,10 @@ def vendor_admin(request):
     vendor = request.user
     products = vendor.products.all()
     orders = Order.objects.all()
+
+    for product in products:
+        if product.total_quantity == 0:
+            product.delete()
 
     return render(request, 'authuser/vendor_admin.html', {'vendor':vendor, 'products':products, 'orders':orders})
 
@@ -103,4 +109,25 @@ def remove_product(request, pk):
     vendor = request.user
     product = vendor.products.get(pk = pk)
     product.delete()
+
     return redirect('vendor_admin')
+
+@login_required
+def order_details(request, pk):
+    customer = request.user
+    order = customer.orders.get(pk = pk)
+
+    return render(request,'authuser/order_details.html', {'order':order})
+@login_required
+def edit_order(request, pk):
+    order = Order.objects.get(id = pk)
+
+    return render(request, 'authuser/edit_order.html',{'order': order})
+
+@login_required
+def remove_order(request, pk):
+    customer = request.user
+    order = customer.orders.get(pk = pk)
+    order.delete()
+
+    return redirect('customer_admin')

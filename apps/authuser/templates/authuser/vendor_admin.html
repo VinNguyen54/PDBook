@@ -1,99 +1,91 @@
-{% extends 'authuser/vendor_admin(header).html' %}
+{% extends 'core/base.html' %}
 
 {% block title %}Vendor admin | {% endblock %}
 
 {% block content %}
-    <!-- content section starts -->
-    <section class="home">
+    <div class="box">
+        <h1 class="title">Vendor admin - {{ vendor.name }}</h1>
+        <a href="{% url 'logout' %}" class="button is-danger is-uppercase">Log out</a>
+    </div>
+    
+    <div class="box">
+        <h2 class="is-size-3 mb-4">My products</h2>
 
-        <div class="container">
-            <a href="{% url 'add_product' %}" class="btn">Add Product</a>
-        </div>
+        <a href="{% url 'add_product' %}" class="button is-dark is-uppercase mb-6">Add product</a>
 
-
-
-
-        <!-- products list -->
-        <div class="product-display">
-            
-            <div class="title">
-                <h3>My Products</h3>
-            </div>
-            
-            {% if products %}
-            <table class="product-display-table">
+        {% if products %}
+            <table class="table is-fullwidth">
                 <thead>
-                    <tr class="name">
-                        <td>Product image</td>
-                        <td>Product name</td>
-                        <td>Product price</td>
-                        <td>Author</td>
-                        <td>Action</td>
+                    <tr>
+                        <th>Title</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Actions</th>
                     </tr>
+                </thead>
+
+                <tbody>
                     {% for product in products %}
-                    <tr class="item">
-                        <td><img src="{{ product.get_thumbnail }}" style="height: 100px ; width: 70px; margin-top: 5px;"></td>
-                        <td>{{ product.title }}</td>
-                        <td>{{ product.get_display_price }}00 VND</td>
-                        <td>{{ product.author }}</td>
-                        <td>
-                            <a href="{% url 'edit_product' product.id %}" class="btn"><i class="fas fa-edit"></i> edit</a>
-                            <a href="{% url 'remove_product' product.id %}" class="btn"><i class="fas fa-trash"></i> remove</a>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td><a href="#">{{ product.title }}</a></td>
+                            <td>${{ product.price }}</td>
+                            <td>{{ product.total_quantity }}</td>
+                            <td><a href="{% url 'edit_product' product.id %}">Edit</a> <a href="{% url 'remove_product' product.id %}">Remove</a></td>
+                        </tr>
                     {% endfor %}
-                </thead>
+                </tbody>
             </table>
-            {% else %}
-            <table class="product-display-table">
-                <thead>
-                    <tr class="items">
-                        <td> <h1>You don't have any products yet...</h1></td>
-                    </tr>
-                </thead>
-            </table>
-            {% endif %}
-        </div>
-
-
-
-
-        <!-- orders list -->
-        <div class="order-display">
-            
-            <div class="title">
-                <h3>My Orders</h3>
-            </div>
-            
-            {% if orders %}
-                <table class="order-display-table">
-                    <thead>
-                        <tr class="name">
-                            <td>Order Id</td>
-                            <td>Customer Name</td>
-                            <td>Phone</td>
-                            <td>Price</td>
-                            <td>Items number</td>
-                            <td>Status</td>
-                            <td>Action</td>
-                        </tr>
-                        {% for order in orders %}
-                        <tr class="item">
-                            <td>#{{ order.id }}</td>
-                            <td>{{ order.first_name }} {{ order.last_name }}</td>
-                            <td>{{ order.phone }}</td>
-                            <td>{{ order.paid_amount }}</td>
-                            <td>{{ order.items|length }}</td>
-                            <td>{{ order.status }}</td>
-                            <td>
-                                <a href="#edit" class="btn"><i class="fas fa-edit"></i> view</a>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </thead>
-                </table>  
-            {% endif %}
-        </div>
-
-    </section>
+        {% else %}
+            <p>You don't have any products yet...</p>
+        {% endif %}
+    </div>
+    <div class="box">
+        <h2 class="is-size-3 mb-4">My orders</h2>
+    
+        {% if orders %}
+            {% for order in orders %}
+                <div class="{% if order.fully_paid %}has-background-success-light{% else %}has-background-info-light{% endif %} mb-2 p-4">
+                    <div class="columns is-multiline">
+                        <div class="column is-6">
+                            <h3 class="is-size-4">#{{ order.id }} - {{ order.first_name }} {{ order.last_name }}</h3>
+                        </div>
+    
+                        <div class="column is-12">
+                            <b>Name:</b> {{ order.first_name }} {{ order.last_name }}<br>
+                            <b>Address:</b> {{ order.address }}<br>
+                            <b>E-mail:</b> {{ order.email }}<br>
+                            <b>Phone:</b> {{ order.phone }}<br>
+                            <b>Status:</b> {{ order.status}}
+    
+                            <table class="table is-fullwidth mt-4">
+                                <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Price</th>
+                                        <th>Quantity</th>
+                                        <th>Paid</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+    
+                                <tbody>
+                                    {% for item in order.items.all %}
+                                        <tr>
+                                            <td>{{ item.product.title }}</td>
+                                            <td>${{ item.product.price }}</td>
+                                            <td>{{ item.quantity }}</td>
+                                            <td>{{ item.product.total_quantity }}</td>
+                                            <td>{{ item.paid|yesno:"Yes,No" }}</td>
+                                            <td>${{ item.price }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            <a href="{% url 'edit_order' order.id %}"> View </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
 {% endblock %}

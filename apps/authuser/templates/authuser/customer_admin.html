@@ -48,6 +48,8 @@
                                     {% endfor %}
                                 </tbody>
                             </table>
+                            <a href="{% url 'order_details' order.id %}"> View </a>
+                            <a href="{% url 'remove_order' order.id %}"> Delete </a>
                         </div>
                     </div>
                 </div>

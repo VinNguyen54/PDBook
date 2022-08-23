@@ -1,13 +1,15 @@
-<div class="swiper-slide box">
-    <div class="icons">
-        <a href="#" class="fas fa-eye"></a>
-    </div>
-    <div class="image">
-        <img src="{{ product.get_thumbnail }}" alt="">
-    </div>
-    <div class="content">
-        <h3>{{ product.title }}</h3>
-        <div class="price">$15.99 <span>{{ product.get_display_price }}00 VND</span></div>
-        <a href="{% url 'product' product.category.slug product.slug %}" class="btn">View</a>
+<div class="column is-3 product-list-item">
+    <div class="box">
+        <figure class="image is-4by3 mb-4">
+            <img src="{{ product.get_thumbnail }}">
+        </figure>
+
+        <h2 class="subtitle">{{ product.title }}</h2>
+
+        <h3 class="price is-size-6 mb-5">{{ product.price }}$</h3>
+
+        <hr>
+
+        <a href="{% url 'product' product.category.slug product.slug %}" class="button is-dark is-uppercase">View</a>
     </div>
 </div>

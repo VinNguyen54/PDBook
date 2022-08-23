@@ -3,19 +3,19 @@
 {% block title %}Log in | {% endblock %}
 
 {% block content %}
-    <section class="login-register">
-        <div class="login-form-container">
+    <h1 class="title">Log in</h1>
 
-            <form action="." method="post">
-                {% csrf_token %}
-                <h3>Login in</h3>
-                <span>Email</span>
-                {{ form.email }}
-                <span>Password</span>
-                {{ form.password }}
-                <input type="submit" value="Sign In" class="btn">
-                <p>Don't have an account ? <a href="{% url 'register' %}">Click here</a></p>
-            </form>
+    <form method="post" action=".">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <div class="field">
+            <div class="control">
+                <button class="button is-dark is-uppercase">Log in</button>
+            </div>
         </div>
-    </section>
+    </form>
 {% endblock %}
+Footer
+© 2022 GitHub, Inc.
