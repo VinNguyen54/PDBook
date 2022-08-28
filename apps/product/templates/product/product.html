@@ -10,18 +10,14 @@
         </figure>
     {% endif %}
 
+    <h1 class="title">{{ product.title }}, ${{ product.price }}</h1>
 
-    <h1 class="title">{{ product.title }}, {{ product.get_display_price }}90 VND</h1>
-    {% if product.get_rating > 0 %}
-        <p>Rating: {{ product.get_rating }} /5</p>
-    {% endif %}
-
-    <p class="mb-6"><span class="tag is-dark">{{ product.author }}</span></p>
+    <p class="mb-6"><span class="tag is-dark">{{ product.vendor.name }}</span></p>
 
     <p>{{ product.description }}</p>
 
     <hr>
-    
+
     {% if messages %}
         {% for message in messages %}
             <div class="notification is-success is-toast">{{ message }}</div>
@@ -33,7 +29,7 @@
 
         <div class="field has-addons">
             <div class="control">
-                {{ form.quantity }}
+                {{form.quantity}}
             </div>
 
             <div class="control">
@@ -41,7 +37,6 @@
             </div>
         </div>
     </form>
-
 
     {% if similar_products %}
         <hr>
@@ -56,27 +51,5 @@
             {% endfor %}
         </div>
     {% endif %}
-    <hr>
-    
-    <h1>Comment</h1>
-
-    <div class="box">
-       {% if product.comments.all %}
-            {% for comment in product.comments.all %}
-                <h3>{{ comment.created_by }}</h3>
-                <p>{{ comment.body }}</p>
-                <p>{{ comment.created_at }}</p>
-            {% endfor %}
-       {% else %}
-        <h1>No commnet yet ...</h1>
-       {% endif %}
-    </div>
-    <div class="box">
-        <form action="." method="post">
-            {% csrf_token %}
-            {{ commentForm.as_p }}
-            <button class="button is-dark is-uppercase">Add comment</button>
-        </form>
-    </div>
 </div>
 {% endblock %}

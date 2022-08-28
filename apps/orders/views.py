@@ -22,6 +22,9 @@ def start_order(request):
             quantity = int(item['quantity'])
             price = product.price * quantity
 
+            product.total_quantity -= quantity
+            product.save()
+
             item = OrderItem.objects.create( order = order, product = product, price = price, quantity = quantity)
 
         cart.clear()

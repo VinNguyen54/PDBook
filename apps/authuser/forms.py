@@ -7,37 +7,38 @@ from django import forms
 from .models import User
 from apps.product.models import Product
 
+
 class RegisterForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['name', 'email', 'password1', 'password2']
     
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields["name"].widget.attrs.update({
-            'required': '',
-            'class': 'box',
-            'type': 'text',
-            'placeholder': 'Enter Your Username...',
-        })
-        self.fields["email"].widget.attrs.update({
-            'required': '',
-            'class': 'box',
-            'type': 'text',
-            'placeholder': 'Enter Your Email...',
-        })
-        self.fields["password1"].widget.attrs.update({
-            'required': '',
-            'class': 'box',
-            'type': 'text',
-            'placeholder': 'Enter Your Password...',
-        })
-        self.fields["password2"].widget.attrs.update({
-            'required': '',
-            'class': 'box',
-            'type': 'text',
-            'placeholder': 'Enter Your Password Confirmation...',
-        })
+    # def __init__(self, *args, **kwargs):
+    #     super().__init__(*args, **kwargs)
+    #     self.fields["name"].widget.attrs.update({
+    #         'required': '',
+    #         'class': 'box',
+    #         'type': 'text',
+    #         'placeholder': 'Enter Your Username...',
+    #     })
+    #     self.fields["email"].widget.attrs.update({
+    #         'required': '',
+    #         'class': 'box',
+    #         'type': 'text',
+    #         'placeholder': 'Enter Your Email...',
+    #     })
+    #     self.fields["password1"].widget.attrs.update({
+    #         'required': '',
+    #         'class': 'box',
+    #         'type': 'text',
+    #         'placeholder': 'Enter Your Password...',
+    #     })
+    #     self.fields["password2"].widget.attrs.update({
+    #         'required': '',
+    #         'class': 'box',
+    #         'type': 'text',
+    #         'placeholder': 'Enter Your Password Confirmation...',
+    #     })
 
 class UserLoginForm(forms.Form):
     email = forms.EmailField()
@@ -59,93 +60,93 @@ class UserLoginForm(forms.Form):
         return super(UserLoginForm, self).clean(*args, **kwargs)
 
     
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields["email"].widget.attrs.update({
-            'required': '',
-            'class': 'box',
-            'type': 'text',
-            'placeholder': 'Enter Your Email...',
-        })
-        self.fields["password"].widget.attrs.update({
-            'required': '',
-            'class': 'box',
-            'type': 'text',
-            'placeholder': 'Enter Your Password...',
-        })
+    # def __init__(self, *args, **kwargs):
+    #     super().__init__(*args, **kwargs)
+    #     self.fields["email"].widget.attrs.update({
+    #         'required': '',
+    #         'class': 'box',
+    #         'type': 'text',
+    #         'placeholder': 'Enter Your Email...',
+    #     })
+    #     self.fields["password"].widget.attrs.update({
+    #         'required': '',
+    #         'class': 'box',
+    #         'type': 'text',
+    #         'placeholder': 'Enter Your Password...',
+    #     })
 
 class ProductForm(ModelForm):
     class Meta:
         model = Product
         fields = ['category', 'image', 'title', 'description', 'author', 'page', 'publisher', 'publish_date', 'total_quantity', 'price', 'discount' ]
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields["category"].widget.attrs.update({
-            'required': '',
-            'class': 'box',
-            'type': 'text',
-            'placeholder': 'Category',
-        })
-        self.fields["image"].widget.attrs.update({
-            'required': '',
-            'class': 'box',
-            'type': 'text',
-            'placeholder': 'Image',
-        })
-        self.fields["title"].widget.attrs.update({
-            'required': '',
-            'class': 'box',
-            'type': 'text',
-            'placeholder': 'Title',
-        })
-        self.fields["description"].widget.attrs.update({
-            'required': '',
-            'class': 'box',
-            'type': 'textarea',
-            'placeholder': 'Description',
-        })
-        self.fields["author"].widget.attrs.update({
-            'required': '',
-            'class': 'box',
-            'type': 'text',
-            'placeholder': 'Author',
-        })
-        self.fields["page"].widget.attrs.update({
-            'required': '',
-            'class': 'box',
-            'type': 'number',
-            'placeholder': 'Page Number',
-        })
-        self.fields["publisher"].widget.attrs.update({
-            'required': '',
-            'class': 'box',
-            'type': 'text',
-            'placeholder': 'Publiser',
-        })
-        self.fields["publish_date"].widget.attrs.update({
-            'required': '',
-            'class': 'box',
-            'type': 'datetime-local',
-            'placeholder': 'Publish Date',
-        })
-        self.fields["total_quantity"].widget.attrs.update({
-            'required': '',
-            'class': 'box',
-            'type': 'number',
-            'default': '0',
-            'placeholder': 'Quantity',
-        })
-        self.fields["price"].widget.attrs.update({
-            'required': '',
-            'class': 'box',
-            'type': 'number',
-            'placeholder': 'Price',
-        })
-        self.fields["discount"].widget.attrs.update({
-            'required': '',
-            'class': 'box',
-            'type': 'number',
-            'default': '0',
-            'placeholder': 'Discount',
-        })
+    # def __init__(self, *args, **kwargs):
+    #     super().__init__(*args, **kwargs)
+    #     self.fields["category"].widget.attrs.update({
+    #         'required': '',
+    #         'class': 'box',
+    #         'type': 'text',
+    #         'placeholder': 'Category',
+    #     })
+    #     self.fields["image"].widget.attrs.update({
+    #         'required': '',
+    #         'class': 'box',
+    #         'type': 'text',
+    #         'placeholder': 'Image',
+    #     })
+    #     self.fields["title"].widget.attrs.update({
+    #         'required': '',
+    #         'class': 'box',
+    #         'type': 'text',
+    #         'placeholder': 'Title',
+    #     })
+    #     self.fields["description"].widget.attrs.update({
+    #         'required': '',
+    #         'class': 'box',
+    #         'type': 'textarea',
+    #         'placeholder': 'Description',
+    #     })
+    #     self.fields["author"].widget.attrs.update({
+    #         'required': '',
+    #         'class': 'box',
+    #         'type': 'text',
+    #         'placeholder': 'Author',
+    #     })
+    #     self.fields["page"].widget.attrs.update({
+    #         'required': '',
+    #         'class': 'box',
+    #         'type': 'number',
+    #         'placeholder': 'Page Number',
+    #     })
+    #     self.fields["publisher"].widget.attrs.update({
+    #         'required': '',
+    #         'class': 'box',
+    #         'type': 'text',
+    #         'placeholder': 'Publiser',
+    #     })
+    #     self.fields["publish_date"].widget.attrs.update({
+    #         'required': '',
+    #         'class': 'box',
+    #         'type': 'datetime-local',
+    #         'placeholder': 'Publish Date',
+    #     })
+    #     self.fields["total_quantity"].widget.attrs.update({
+    #         'required': '',
+    #         'class': 'box',
+    #         'type': 'number',
+    #         'default': '0',
+    #         'placeholder': 'Quantity',
+    #     })
+    #     self.fields["price"].widget.attrs.update({
+    #         'required': '',
+    #         'class': 'box',
+    #         'type': 'number',
+    #         'placeholder': 'Price',
+    #     })
+    #     self.fields["discount"].widget.attrs.update({
+    #         'required': '',
+    #         'class': 'box',
+    #         'type': 'number',
+    #         'default': '0',
+    #         'placeholder': 'Discount',
+    #     })

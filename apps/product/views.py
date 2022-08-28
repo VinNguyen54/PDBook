@@ -8,12 +8,6 @@ from .models import Category, Product, Comment
 
 from apps.cart.cart import Cart
 
-def search(request):
-    query = request.GET.get('query', '')
-    products = Product.objects.filter(Q(title__icontains=query) | Q(description__icontains=query))
-
-    return render(request, 'product/search.html', {'products': products, 'query': query})
-# Create your views here.
 def product(request, category_slug, product_slug):
     cart =  Cart(request)
 
@@ -24,8 +18,8 @@ def product(request, category_slug, product_slug):
 
         commentform = CommentForm(request.POST, instance=product)
 
-        if form.is_valid():
-            quantity = form.cleaned_data['quantity']
+        if form.is_valid(): 
+            quantity = form.cleaned_data['quantity'] 
 
             cart.add(product_id=product.id, quantity=quantity, update_quantity=False)
 
@@ -57,7 +51,7 @@ def product(request, category_slug, product_slug):
     }
 
     return render(request, 'product/product.html', context)
-
+    
 def category(request, category_slug):
     category = get_object_or_404(Category, slug=category_slug)
 
