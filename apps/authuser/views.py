@@ -69,6 +69,8 @@ def vendor_admin(request):
 
     return render(request, 'authuser/vendor_admin.html', {'vendor':vendor, 'products':products, 'orders':orders})
 
+
+# add product for vendor 
 @login_required
 def add_product(request):
     if request.method == 'POST':
@@ -86,6 +88,8 @@ def add_product(request):
     
     return render(request, 'authuser/add_product.html', {'form': form})
 
+
+# edit product for vendor
 @login_required
 def edit_product(request, pk):
     vendor = request.user
@@ -104,6 +108,8 @@ def edit_product(request, pk):
 
     return render(request, 'authuser/edit_product.html', {'form':form, 'product':product})
 
+
+# remove product for vendor 
 @login_required
 def remove_product(request, pk):
     vendor = request.user
@@ -112,18 +118,21 @@ def remove_product(request, pk):
 
     return redirect('vendor_admin')
 
+# change order's status for customer
+def edit_order(request, pk):
+    order = Order.objects.get(pk = pk)
+
+    return render(request, 'authuser/edit_order.html', {'order':order})
+
+# details order for customer 
 @login_required
 def order_details(request, pk):
     customer = request.user
     order = customer.orders.get(pk = pk)
 
     return render(request,'authuser/order_details.html', {'order':order})
-@login_required
-def edit_order(request, pk):
-    order = Order.objects.get(id = pk)
 
-    return render(request, 'authuser/edit_order.html',{'order': order})
-
+# remove product for customer
 @login_required
 def remove_order(request, pk):
     customer = request.user

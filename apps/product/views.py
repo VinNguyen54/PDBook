@@ -1,4 +1,5 @@
 import random
+from tabnanny import check
 from django.contrib import messages
 from django.shortcuts import redirect, render,get_object_or_404
 from django.db.models import Q
@@ -20,10 +21,20 @@ def product(request, category_slug, product_slug):
 
         if form.is_valid(): 
             quantity = form.cleaned_data['quantity'] 
+            checked = False
 
-            cart.add(product_id=product.id, quantity=quantity, update_quantity=False)
+            for item in cart:
+                product_cart = item['product']
+                
+                if product.id == product_cart.id:
+                    checked = True
+            
+            if checked:
+                messages.success(request, 'The product has in cart!!!!')
+            else: 
+                cart.add(product_id=product.id, quantity=quantity, update_quantity=False)
 
-            messages.success(request, 'The product was added to the cart')
+                messages.success(request, 'The product was added to the cart')
 
             return redirect('product', category_slug=category_slug, product_slug=product_slug)
 

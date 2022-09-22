@@ -3,5 +3,17 @@
 {% block title %}{% endblock %}
 
 {% block content %}
-    <h1>{{ order.id }}</h1>
+    <h1 class="title">{{ order.id }}</h1>
+
+    <form method="post" action="." >
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <div class="field">
+            <div class="control">
+                <button class="button is-dark is-uppercase">Save Change</button>
+            </div>
+        </div>
+    </form>
 {% endblock %}

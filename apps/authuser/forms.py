@@ -6,6 +6,7 @@ from django import forms
 
 from .models import User
 from apps.product.models import Product
+from apps.orders.models import Order
 
 
 class RegisterForm(UserCreationForm):

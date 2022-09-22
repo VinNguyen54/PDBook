@@ -4,6 +4,13 @@ from django.db import models
 from apps.product.models import Product
 from apps.authuser.models import User
 
+class Status(models.Model):
+    content         = models.TextField(blank=True, null=True)
+    slug            = models.SlugField(max_length=255)
+
+    def __str__(self):
+        return self.content
+
 class Order(models.Model):
     HOME = 'When receiving'
 
@@ -11,20 +18,8 @@ class Order(models.Model):
         (HOME, 'When receiving'),
     )
 
-    ORDERED     = 'ordered'
-    SHIPPED     = 'shipped'
-    RECEIVED    = 'received'
-    WAITING     ='waiting confirmation' 
-
-
-    STATUS_CHOICES = (
-        (WAITING,'waiting confirmation' ),
-        (ORDERED,'ordered' ),
-        (SHIPPED, 'shipped'),
-        (RECEIVED, 'received')
-    )
-
     customer        = models.ForeignKey(User, related_name='orders', on_delete=models.CASCADE, blank = True, null=True)
+    status          = models.ForeignKey(Status, related_name='orders', on_delete=models.CASCADE, blank = True, null=True)
     first_name      = models.CharField(max_length=255)
     last_name       = models.CharField(max_length=255)
     email           = models.EmailField()
@@ -37,9 +32,6 @@ class Order(models.Model):
     paid            = models.BooleanField(default=False)
     paid_amount     = models.DecimalField(max_digits=6, decimal_places=2, blank= True, null= True)
     payment_method  = models.CharField(max_length=255 ,choices = PAYMENT_METHOD_CHOICES,default=HOME) 
-    
-
-    status          = models.CharField(max_length=255,choices = STATUS_CHOICES,default=WAITING)
 
     class Meta:
         ordering = ['-created_at']
