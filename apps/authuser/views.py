@@ -4,7 +4,7 @@ from django.utils.text import slugify
 from django.contrib.auth.decorators import login_required
 
 
-from .forms import RegisterForm, UserLoginForm, ProductForm
+from .forms import RegisterForm, UserLoginForm, ProductForm, ChangeStatusForm
 from apps.product.models import Product
 from apps.orders.models import Order
 # Create your views here.

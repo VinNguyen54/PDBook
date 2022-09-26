@@ -4,22 +4,35 @@ from django.db import models
 from apps.product.models import Product
 from apps.authuser.models import User
 
-class Status(models.Model):
-    content         = models.TextField(blank=True, null=True)
-    slug            = models.SlugField(max_length=255)
-
-    def __str__(self):
-        return self.content
-
 class Order(models.Model):
-    HOME = 'When receiving'
+
+    # payment method 
+    CASH =  'cash'
 
     PAYMENT_METHOD_CHOICES = (
-        (HOME, 'When receiving'),
+        (CASH, 'cash'),
     )
 
+
+    # status 
+    P = 'Processing'
+    A = 'Authorized'   
+    AS = 'Awaiting Shipment' 
+    D = 'Delivering'
+    COM = 'Complete'
+    CAN = 'Cancelled'
+
+    STATUS_CHOICES = (
+        (P, 'Processing'),
+        (A, 'Authorized'),
+        (AS, 'Awaiting Shipment'),
+        (D, 'Delivering'),
+        (COM, 'Complete'),
+        (CAN, 'Cancelled')
+    )
+
+
     customer        = models.ForeignKey(User, related_name='orders', on_delete=models.CASCADE, blank = True, null=True)
-    status          = models.ForeignKey(Status, related_name='orders', on_delete=models.CASCADE, blank = True, null=True)
     first_name      = models.CharField(max_length=255)
     last_name       = models.CharField(max_length=255)
     email           = models.EmailField()
@@ -31,7 +44,8 @@ class Order(models.Model):
     
     paid            = models.BooleanField(default=False)
     paid_amount     = models.DecimalField(max_digits=6, decimal_places=2, blank= True, null= True)
-    payment_method  = models.CharField(max_length=255 ,choices = PAYMENT_METHOD_CHOICES,default=HOME) 
+    payment_method  = models.CharField(max_length=255 ,choices = PAYMENT_METHOD_CHOICES,default=CASH) 
+    status          = models.CharField(max_length=255, choices=STATUS_CHOICES, default=P)
 
     class Meta:
         ordering = ['-created_at']

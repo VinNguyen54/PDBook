@@ -151,3 +151,16 @@ class ProductForm(ModelForm):
     #         'default': '0',
     #         'placeholder': 'Discount',
     #     })
+
+
+STATUS_CHOICES = (
+    ('P', 'Processing'),
+    ('A', 'Authorized'),
+    ('AS', 'Awaiting Shipment'),
+    ('D', 'Delivering'),
+    ('COM', 'Complete'),
+    ('CAN', 'Cancelled')
+)
+
+class ChangeStatusForm(forms.Form):
+    status_fields = forms.ChoiceField(choices=STATUS_CHOICES)

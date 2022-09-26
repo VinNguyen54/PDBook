@@ -1,11 +1,13 @@
 from django.shortcuts import redirect
 
+
 from apps.cart.cart import Cart
 
 from .models import Order, OrderItem
 
 def start_order(request):
     cart = Cart(request)
+
     if request.method == "POST":
         first_name = request.POST.get('first_name')
         last_name = request.POST.get('last_name')
