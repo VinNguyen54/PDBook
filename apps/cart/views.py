@@ -2,6 +2,13 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 
 from .cart import Cart
+from apps.product.models import Product
+
+def add_to_cart(request, product_id):
+    cart = Cart(request)
+    cart.add(product_id)
+
+    return render(request, 'cart/menu_cart.html')
 
 # Create your views here.
 def cart_detail(request):
@@ -19,6 +26,7 @@ def cart_detail(request):
         cart.add(change_quantity, quantity, True)
 
         return redirect('cart')
+
 
     return render(request, 'cart/cart.html')
 

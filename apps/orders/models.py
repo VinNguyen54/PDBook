@@ -1,3 +1,4 @@
+from email.policy import default
 from pyexpat import model
 from django.db import models
 
@@ -14,24 +15,6 @@ class Order(models.Model):
     )
 
 
-    # status 
-    P = 'Processing'
-    A = 'Authorized'   
-    AS = 'Awaiting Shipment' 
-    D = 'Delivering'
-    COM = 'Complete'
-    CAN = 'Cancelled'
-
-    STATUS_CHOICES = (
-        (P, 'Processing'),
-        (A, 'Authorized'),
-        (AS, 'Awaiting Shipment'),
-        (D, 'Delivering'),
-        (COM, 'Complete'),
-        (CAN, 'Cancelled')
-    )
-
-
     customer        = models.ForeignKey(User, related_name='orders', on_delete=models.CASCADE, blank = True, null=True)
     first_name      = models.CharField(max_length=255)
     last_name       = models.CharField(max_length=255)
@@ -45,13 +28,24 @@ class Order(models.Model):
     paid            = models.BooleanField(default=False)
     paid_amount     = models.DecimalField(max_digits=6, decimal_places=2, blank= True, null= True)
     payment_method  = models.CharField(max_length=255 ,choices = PAYMENT_METHOD_CHOICES,default=CASH) 
-    status          = models.CharField(max_length=255, choices=STATUS_CHOICES, default=P)
+
+    authorized      = models.BooleanField(default = True)
+    delivering      = models.BooleanField(default = False)
+    complete        = models.BooleanField(default = False)
+    cancelled       = models.BooleanField(default = False)
 
     class Meta:
         ordering = ['-created_at']
     
     def __str__(self):
         return self.last_name
+
+    
+    def get_total_price(self):
+        if self.paid_amount:
+            return self.paid_amount / 100
+        
+        return 0
 
 
 

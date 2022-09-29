@@ -4,8 +4,7 @@ from django.utils.text import slugify
 from django.contrib.auth.decorators import login_required
 
 
-from .forms import RegisterForm, UserLoginForm, ProductForm, ChangeStatusForm
-from apps.product.models import Product
+from .forms import RegisterForm, UserLoginForm, ProductForm
 from apps.orders.models import Order
 # Create your views here.
 
@@ -23,7 +22,7 @@ def register(request):
     else:
         form =RegisterForm()
 
-    return render(request, 'authuser/register.html', {'form':form})
+    return render(request, 'authuser/signup.html', {'form':form})
 
 
 def userlogin(request):
@@ -119,6 +118,7 @@ def remove_product(request, pk):
     return redirect('vendor_admin')
 
 # change order's status for customer
+@login_required
 def edit_order(request, pk):
     order = Order.objects.get(pk = pk)
 

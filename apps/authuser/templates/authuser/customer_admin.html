@@ -3,57 +3,55 @@
 {% block title %}Customer admin | {% endblock %}
 
 {% block content %}
-    <div class="box">
-        <h1 class="title">Customer admin - {{ customer.name }}</h1>
-        <a href="{% url 'logout' %}" class="button is-danger is-uppercase">Log out</a>
-    </div>
-    <div class="box">
-        <h2 class="is-size-3 mb-4">My orders</h2>
-    
-        {% if orders %}
-            {% for order in orders %}
-                <div class="{% if order.fully_paid %}has-background-success-light{% else %}has-background-info-light{% endif %} mb-2 p-4">
-                    <div class="columns is-multiline">
-                        <div class="column is-6">
-                            <h3 class="is-size-4">#{{ order.id }} - {{ order.first_name }} {{ order.last_name }}</h3>
-                        </div>
-    
-                        <div class="column is-12">
-                            <b>Name:</b> {{ order.first_name }} {{ order.last_name }}<br>
-                            <b>Address:</b> {{ order.address }}<br>
-                            <b>E-mail:</b> {{ order.email }}<br>
-                            <b>Phone:</b> {{ order.phone }} <br>
-                            <b>status:</b> {{ order.status }}<br>
-    
-                            <table class="table is-fullwidth mt-4">
-                                <thead>
-                                    <tr>
-                                        <th>Title</th>
-                                        <th>Price</th>
-                                        <th>Quantity</th>
-                                        <th>Paid</th>
-                                        <th>Total</th>
-                                    </tr>
-                                </thead>
-    
-                                <tbody>
-                                    {% for item in order.items.all %}
-                                            <tr>
-                                                <td>{{ item.product.title }}</td>
-                                                <td>${{ item.product.price }}</td>
-                                                <td>{{ item.quantity }}</td>
-                                                <td>{{ item.vendor_paid|yesno:"Yes,No" }}</td>
-                                                <td>${{ item.get_total_price }}</td>
-                                            </tr>
-                                    {% endfor %}
-                                </tbody>
-                            </table>
-                            <a href="{% url 'order_details' order.id %}"> View </a>
-                            <a href="{% url 'remove_order' order.id %}"> Delete </a>
-                        </div>
-                    </div>
+    <div class="max-w-6xl mx-auto p-6">
+        <h1 class="mb-5 text-3xl">My account</h1>
+
+        <div class="mb-6">
+            <strong>Name: </strong>{{ request.user.name }}<br>
+            <strong>E-mail: </strong>{{ request.user.email }}<br>
+
+            <a href="{% url 'logout' %}" class="inline-block mt-4 py-4 px-6 rounded-xl text-white bg-red-500">Logout</a>
+        </div>
+
+        <hr>
+
+        <h2 class="my-6 text-xl">My orders</h2>
+
+        {% for order in request.user.orders.all %}
+            <div class="w-full mb-6 p-6 flex flex-wrap bg-gray-100 rounded-xl">
+                <div class="mb-6 flex justify-between">
+                    <a href="#">Order id: {{ order.id }}</a>
                 </div>
-            {% endfor %}
-        {% endif %}
+
+                <div class="mb-6 w-full">
+                    {% for item in order.items.all %}
+                        <div class="product mb-6 flex pr-6">
+                            <a href="#" class="w-1/4">
+                                <img class="hover:shadow-lg rounded-xl" src="{{ item.product.get_thumbnail }}">
+                            </a>
+
+                            <div class="w-3/4 pl-6">
+                                <div class="flex justify-between">
+                                    <a href="#" class="text-lg">{{ item.product.title }}</a>
+
+                                    <p class="mb-6 pt-1 text-gray-400">${{ item.price }}</p>
+                                </div>
+
+                                <hr>
+
+                                <div class="mt-6">
+                                    Quantity: {{ item.quantity }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <div>
+                    <p class="text-lg">Date: {{ order.created_at }}</p>
+                    <p class="text-lg">Total: ${{ order.get_total_price }}</p>
+                </div>
+            </div>
+        {% endfor %}
     </div>
 {% endblock %}

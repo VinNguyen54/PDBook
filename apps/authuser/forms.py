@@ -1,3 +1,4 @@
+from re import L
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate
 from django.forms import ModelForm
@@ -14,32 +15,32 @@ class RegisterForm(UserCreationForm):
         model = User
         fields = ['name', 'email', 'password1', 'password2']
     
-    # def __init__(self, *args, **kwargs):
-    #     super().__init__(*args, **kwargs)
-    #     self.fields["name"].widget.attrs.update({
-    #         'required': '',
-    #         'class': 'box',
-    #         'type': 'text',
-    #         'placeholder': 'Enter Your Username...',
-    #     })
-    #     self.fields["email"].widget.attrs.update({
-    #         'required': '',
-    #         'class': 'box',
-    #         'type': 'text',
-    #         'placeholder': 'Enter Your Email...',
-    #     })
-    #     self.fields["password1"].widget.attrs.update({
-    #         'required': '',
-    #         'class': 'box',
-    #         'type': 'text',
-    #         'placeholder': 'Enter Your Password...',
-    #     })
-    #     self.fields["password2"].widget.attrs.update({
-    #         'required': '',
-    #         'class': 'box',
-    #         'type': 'text',
-    #         'placeholder': 'Enter Your Password Confirmation...',
-    #     })
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["name"].widget.attrs.update({
+            'required': '',
+            'class': 'w-full mt-2 py-4 px-6 bg-white rounded-xl',
+            'type': 'text',
+            'placeholder': 'Enter Your Username...',
+        })
+        self.fields["email"].widget.attrs.update({
+            'required': '',
+            'class': 'w-full mt-2 py-4 px-6 bg-white rounded-xl',
+            'type': 'text',
+            'placeholder': 'Enter Your Email...',
+        })
+        self.fields["password1"].widget.attrs.update({
+            'required': '',
+            'class': 'w-full mt-2 py-4 px-6 bg-white rounded-xl',
+            'type': 'text',
+            'placeholder': 'Enter Your Password...',
+        })
+        self.fields["password2"].widget.attrs.update({
+            'required': '',
+            'class': 'w-full mt-2 py-4 px-6 bg-white rounded-xl',
+            'type': 'text',
+            'placeholder': 'Enter Your Password Confirmation...',
+        })
 
 class UserLoginForm(forms.Form):
     email = forms.EmailField()
@@ -61,20 +62,20 @@ class UserLoginForm(forms.Form):
         return super(UserLoginForm, self).clean(*args, **kwargs)
 
     
-    # def __init__(self, *args, **kwargs):
-    #     super().__init__(*args, **kwargs)
-    #     self.fields["email"].widget.attrs.update({
-    #         'required': '',
-    #         'class': 'box',
-    #         'type': 'text',
-    #         'placeholder': 'Enter Your Email...',
-    #     })
-    #     self.fields["password"].widget.attrs.update({
-    #         'required': '',
-    #         'class': 'box',
-    #         'type': 'text',
-    #         'placeholder': 'Enter Your Password...',
-    #     })
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["email"].widget.attrs.update({
+            'required': '',
+            'class': 'w-full mt-2 py-4 px-6 bg-white rounded-xl',
+            'type': 'text',
+            'placeholder': 'Enter Your Email...',
+        })
+        self.fields["password"].widget.attrs.update({
+            'required': '',
+            'class': 'w-full mt-2 py-4 px-6 bg-white rounded-xl',
+            'type': 'text',
+            'placeholder': 'Enter Your Password...',
+        })
 
 class ProductForm(ModelForm):
     class Meta:
@@ -151,16 +152,3 @@ class ProductForm(ModelForm):
     #         'default': '0',
     #         'placeholder': 'Discount',
     #     })
-
-
-STATUS_CHOICES = (
-    ('P', 'Processing'),
-    ('A', 'Authorized'),
-    ('AS', 'Awaiting Shipment'),
-    ('D', 'Delivering'),
-    ('COM', 'Complete'),
-    ('CAN', 'Cancelled')
-)
-
-class ChangeStatusForm(forms.Form):
-    status_fields = forms.ChoiceField(choices=STATUS_CHOICES)
