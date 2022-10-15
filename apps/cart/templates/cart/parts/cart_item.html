@@ -1,5 +1,5 @@
 {% if item %}
-    <div class="product mb-6 flex pr-6" id="cart-item-{{ item.product.id }}">
+    <div class="product mb-14 flex pr-6" id="cart-item-{{ item.product.id }}">
         <a href="{% url 'product' item.product.category.slug item.product.slug  %}" class="w-1/4">
             <img class="hover:shadow-lg rounded-xl" src="{{ item.product.get_thumbnail }}">
         </a>
@@ -15,7 +15,7 @@
 
             <div class="quantity mt-6 flex items-center space-x-4">
                 <a 
-                    class="p-3 bg-gray-100"
+                    class="p-3 bg-gray-300"
                     href="?change_quantity={{ item.id }}&quantity=-1"
                     hx-target="#cart-item-{{ item.product.id }}"
                     hx-swap="outerHTML"
@@ -24,7 +24,7 @@
                 </a>
                 <span>{{ item.quantity }}</span>
                 <a 
-                    class="p-3 bg-gray-100"
+                    class="p-3 bg-gray-300"
                     href="?change_quantity={{ item.id }}&quantity=1"
                     hx-target="#cart-item-{{ item.product.id }}"
                     hx-swap="outerHTML"
