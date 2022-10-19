@@ -117,26 +117,42 @@ def remove_product(request, pk):
 
     return redirect('vendor_admin')
 
-# change order's status for customer
-@login_required
-def edit_order(request, pk):
-    order = Order.objects.get(pk = pk)
-
-    return render(request, 'authuser/edit_order.html', {'order':order})
 
 # details order for customer 
 @login_required
 def order_details(request, pk):
-    customer = request.user
-    order = customer.orders.get(pk = pk)
+    order = Order.objects.get(pk = pk)
 
     return render(request,'authuser/order_details.html', {'order':order})
 
 # remove product for customer
 @login_required
 def remove_order(request, pk):
-    customer = request.user
-    order = customer.orders.get(pk = pk)
+    order = Order.objects.get(pk = pk)
     order.delete()
 
+    return redirect('vendor_admin')
+
+
+# cancel for customer 
+@login_required
+def cancel_order(request, pk):
+    order = Order.objects.get(pk = pk)
+
+    if order.authorized and order.cancelled == False:
+        order.cancelled = True
+        order.save()
+
     return redirect('customer_admin')
+
+# change order's status for vendor 
+@login_required
+def change_status(request, pk):
+    order =  Order.objects.get(pk = pk)
+
+    if order.authorized and order.delivering== False  and order.complete == False and order.cancelled == False:
+        order.delivering = True
+        order.save()
+    elif order.authorized and order.delivering  and order.complete == False and order.cancelled == False:
+        order.complete = True
+        order.save()

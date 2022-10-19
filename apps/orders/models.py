@@ -40,14 +40,6 @@ class Order(models.Model):
     def __str__(self):
         return self.last_name
 
-    
-    def get_total_price(self):
-        if self.paid_amount:
-            return self.paid_amount / 100
-        
-        return 0
-
-
 
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)
@@ -57,4 +49,7 @@ class OrderItem(models.Model):
 
     def __str__(self):
         return '%s' % self.id
+
+    def get_total_price(self):
+        return self.price * self.quantity
     

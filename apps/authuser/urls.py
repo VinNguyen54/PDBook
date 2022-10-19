@@ -1,7 +1,7 @@
 from django.urls import path
 from django.contrib.auth import views
 
-from .views import register, userlogin ,vendor_admin, add_product, edit_product, customer_admin, remove_product, order_details, edit_order, remove_order
+from .views import register, userlogin ,vendor_admin, add_product, edit_product, customer_admin, remove_product, order_details, remove_order, cancel_order, change_status
 
 urlpatterns = [ 
     path('register/', register, name='register'),
@@ -15,10 +15,10 @@ urlpatterns = [
     path('vendor-admin/', vendor_admin, name= 'vendor_admin'),
     path('add-product/',add_product, name='add_product'),
     path('edit-product/<int:pk>/',edit_product, name='edit_product'),
+    path('change/<int:pk>/', change_status , name='change_status'),
    
     path('remove-product/<int:pk>',remove_product, name = 'remove_product'),
 
-    path('edit_order/<int:pk>', edit_order, name= 'edit_order'),
-
     path('customer-admin/',customer_admin, name='customer_admin'),
+    path('customer-admin/cancle/<int:pk>/', cancel_order, name='cancel_order')
 ]

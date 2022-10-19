@@ -1,19 +1,77 @@
-{% extends 'core/base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Admin PDbook</title>
+</head>
+<body>
+    <nav class="border-b border-gray-300">
+        <div class="max-w-6xl mx-auto py-2 px-6 xl:px-0 flex items-center justify-between">
+            <div class="menu-left flex items-center space-x-6">
+                <a class="py-4 text-lg text-green-500 font-semibold">PDbook</a>
+            </div>
 
-{% block title %}Add product | {% endblock %}
-
-{% block content %}
-    <h1 class="title">Add product</h1>
-
-    <form method="post" action="." enctype="multipart/form-data">
-        {% csrf_token %}
-
-        {{ form.as_p }}
-
-        <div class="field">
-            <div class="control">
-                <button class="button is-dark is-uppercase">Submit</button>
+            <div class="menu-right flex items-center space-x-4">
+                <p>Admin</p>
+                <a href="{% url 'logout' %}">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                    </svg>
+                </a>
             </div>
         </div>
-    </form>
-{% endblock %}
+    </nav>
+    <div class="max-w-lg mx-auto flex flex-wrap p-6">
+        <div class="w-full bg-gray-300 p-6 rounded-xl">
+            <h1 class="mb-6 text-2xl">Add product</h1>
+
+            <form method="post" action="." class="space-y-3">
+                {% csrf_token %}
+                
+                <div>
+                    <label>Category</label>
+                    {{ form.category }}
+                </div>
+                <div>
+                    <label>Image</label>
+                    {{ form.image }}
+                </div>
+                <div>
+                    <label>Title</label>
+                    {{ form.title }}
+                </div>
+                <div>
+                    <label>Description</label>
+                    {{ form.description }}
+                </div>
+                <div>
+                    <label>Author</label>
+                    {{ form.author }}
+                </div>
+                <div>
+                    <label>Page</label>
+                    {{ form.page }}
+                </div>
+                <div>
+                    <label>Publisher</label>
+                    {{ form.publisher }}
+                </div>
+                <div>
+                    <label>Publish date</label>
+                    {{ form.publish_date }}
+                </div>
+                <div>
+                    <label>Price</label>
+                    {{ form.price }}
+                </div>
+
+                <div>
+                    <button class="py-4 px-6 rounded-xl text-white bg-green-500 hover:bg-green-600">Submit</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</body>
