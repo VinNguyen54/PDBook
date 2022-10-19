@@ -15,9 +15,10 @@ def start_order(request):
         phone = request.POST.get('phone')
         address = request.POST.get('address')
         note = request.POST.get('note')
+        paid = cart.get_total_cost()
        
 
-        order = Order.objects.create(customer = request.user, first_name = first_name, last_name = last_name, email = email, phone = phone, address = address, note = note)
+        order = Order.objects.create(customer = request.user, first_name = first_name, last_name = last_name, email = email, phone = phone, address = address, note = note, paid_amount = paid)
 
         for item in cart:
             product = item['product']
