@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 
 
 from .forms import RegisterForm, UserLoginForm, ProductForm
+from .models import Statistics
 from apps.orders.models import Order
 # Create your views here.
 
@@ -61,12 +62,17 @@ def vendor_admin(request):
     vendor = request.user
     products = vendor.products.all()
     orders = Order.objects.all()
+    statistics = Statistics.objects.all()
+    total = 0
+
+    for i in statistics:
+        total += i.total_price
 
     for product in products:
         if product.total_quantity == 0:
             product.delete()
 
-    return render(request, 'authuser/vendor_admin.html', {'vendor':vendor, 'products':products, 'orders':orders})
+    return render(request, 'authuser/vendor_admin.html', {'vendor':vendor, 'products':products, 'orders':orders, 'total':total})
 
 
 # add product for vendor 
@@ -150,9 +156,18 @@ def cancel_order(request, pk):
 def change_status(request, pk):
     order =  Order.objects.get(pk = pk)
 
-    if order.authorized and order.delivering== False  and order.complete == False and order.cancelled == False:
+    if order.authorized and order.delivering== False  :
         order.delivering = True
         order.save()
-    elif order.authorized and order.delivering  and order.complete == False and order.cancelled == False:
+
+    return redirect('vendor_admin')
+
+@login_required
+def complete(request, pk):
+    order =  Order.objects.get(pk = pk)
+
+    if order.authorized and order.complete == False :
         order.complete = True
         order.save()
+
+    return redirect('vendor_admin')

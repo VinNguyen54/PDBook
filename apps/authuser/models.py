@@ -50,3 +50,12 @@ class User(AbstractBaseUser, PermissionsMixin):
     
     def get_short_name(self):
         return self.name or self.email.split('@')[0]
+
+
+class Statistics(models.Model):
+    date_updated = models.DateTimeField(auto_now_add = True)
+    total_price = models.DecimalField(max_digits=6, decimal_places=2)
+
+    
+
+    

@@ -47,7 +47,7 @@
                                 {{ order.address }}
                             </p>
                             <div class="txn mt-2">
-                                Phone: {{ order.email }}
+                                Email: {{ order.email }}
                             </div>
                             <div class="txn mt-2">
                                 Phone: {{ order.phone }}
@@ -101,11 +101,7 @@
                 <div class="row">
                     <div class="col-8">
                         <p class="m-0 font-weight-bold">Note</p>
-                        {% if order.note %}
                         <p> {{ order.note }}</p>
-                        {% else %}
-                        <p> None </p> 
-                        {% endif %}
                     </div>
                     <div class="col-4">
                         <table class="table border-0 table-hover">

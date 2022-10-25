@@ -38,11 +38,11 @@
                             <td class="p-3 text-sm text-gray-700">{{ order.first_name }} {{ order.last_name }}</td>
                             <td class="p-3 text-sm text-gray-700"> {{ order.phone }}</td>
                             <td class="p-3 text-sm text-gray-700"> {{ order.email }}</td>
-                            {% if order.authorized and order.delivering == False and order.complete == False and order.cancelled == False %}
+                            {% if order.authorized and order.delivering == False and order.complete == False  %}
                             <td class="p-3 text-sm text-gray-700"> <span class="p-1.5 text-xs font-medium uppercase tracking-wider text-gray-800 bg-gray-200 rounded-lg bg-opacity-40 "> Authorized</span></td>
-                            {% elif order.authorized and order.delivering and order.complete == False and order.cancelled == False%}
+                            {% elif order.authorized and order.delivering and order.complete == False %}
                             <td class="p-3 text-sm text-gray-700"> <span class="p-1.5 text-xs font-medium uppercase tracking-wider text-yellow-800 bg-yellow-200 rounded-lg bg-opacity-40 "> Delivering</span></td>
-                            {% elif order.authorized and order.delivering and order.complete and order.cancelled == False%}
+                            {% elif order.authorized and order.delivering and order.complete %}
                             <td class="p-3 text-sm text-gray-700"> <span class="p-1.5 text-xs font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-40 "> Complete</span></td>
                             {% elif order.authorized and  order.cancelled %}
                             <td class="p-3 text-sm text-gray-700"> <span class="p-1.5 text-xs font-medium uppercase tracking-wider text-red-800 bg-red-200 rounded-lg bg-opacity-40 "> Cancel</span></td>

@@ -23,6 +23,14 @@
             </div>
         </div>
     </nav>
+    
+    
+    <div class="p-5 mb-2 bg-gray-100">
+        <div class="inline-block mt-3 ml-3 mb-3 px-10 py-5 rounded-xl bg-green-500 text-white "> Orders: {{ orders|length }} </div>
+        <div class="inline-block mt-3 ml-3 mb-3 px-10 py-5 rounded-xl bg-yellow-500 text-white "> Income: {{ total }} </div>
+    </div>
+
+
     <div class="p-5 bg-gray-100">
         <h1 class="text-xl mb-2"> Your Products </h1>
 
@@ -102,6 +110,9 @@
                             <a href="{% url 'order_details' order.id %}" class="inline-block px-5 py-2 rounded-xl bg-green-500 text-white hover:bg-green-700">View</a>
                             {% if order.authorized and  order.cancelled %}
                             <a href="{% url 'remove_order' order.id %}" class="inline-block px-5 py-2 rounded-xl bg-red-500 text-white hover:bg-red-700">Remove</a>
+                            {% else %}
+                            <a href="{% url 'change_status' order.id %}" class="inline-block px-5 py-2 rounded-xl bg-red-500 text-white hover:bg-red-700">Change status</a>
+                            <a href="{% url 'complete' order.id %}" class="inline-block px-5 py-2 rounded-xl bg-yellow-500 text-white hover:bg-yellow-700">Complete</a>
                             {% endif %}
                         </td>
                     </tr>

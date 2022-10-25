@@ -1,9 +1,11 @@
+from tracemalloc import Statistic
 from django.shortcuts import redirect
 
 
 from apps.cart.cart import Cart
 
 from .models import Order, OrderItem
+from apps.authuser.models import Statistics
 
 def start_order(request):
     cart = Cart(request)
@@ -19,6 +21,9 @@ def start_order(request):
        
 
         order = Order.objects.create(customer = request.user, first_name = first_name, last_name = last_name, email = email, phone = phone, address = address, note = note, paid_amount = paid)
+        
+
+        statistic = Statistics.objects.create(total_price = paid)
 
         for item in cart:
             product = item['product']
